@@ -1,13 +1,11 @@
-﻿def automat_finit():
-    q0 = "q0"
+def automat_finit():
+    q0 = "q0" 
     q1 = "q1"
     q2 = "q2"
-    q3 = "q3"
+    q3 = "q3" 
     q4 = "q4"
-    q5 = "q5"
-    stare = q0  
-    comanda_confirmata = False  
-    bautura_selectata = None  
+    stare = q0
+    bautura_selectata = None
 
     while True:
         print("\n    Meniu Băuturi    ")
@@ -15,8 +13,7 @@
         print("T - Ceai")
         print("A - Cappuccino")
         print("H - Ciocolată caldă")
-        print("O - Confirmare comandă")
-        print("D - Anulează comanda\n")
+        print("OK - Confirmare comandă\n")
 
         inp = input("Selectează băutura: ").strip().upper()
 
@@ -32,26 +29,24 @@
         elif inp == "H":
             stare = q4
             bautura_selectata = "Ciocolata caldă"
+        elif inp == "OK":
+            print("Trebuie să comanzi o băutură.") 
+            continue 
         else:
             print(f"Eroare: Opțiune invalidă ({inp}). Reîncearcă!\n")
-            continue 
+            continue
 
-        while True:
-            confirmare = input(f"Confirmi comanda pentru {bautura_selectata}? (O - Da, D - Anulează): ").strip().upper()
-            if confirmare == "O":
-                stare = q5
-                comanda_confirmata = True
-                break 
-            elif confirmare == "D":
-                stare = q0
-                comanda_confirmata = False
-                print("Comanda anulată. Alege din nou o băutură!\n")
-                break
+        if stare in [q1, q2, q3, q4]:
+            confirmare = input("Doriți să confirmați cu 'OK'? ").strip().upper()
+            if confirmare == "OK":
+                print(f"{bautura_selectata} dumneavoastră este gata!")
+                stare = q0  
+                bautura_selectata = None  
             else:
-                print("Eroare: Introdu doar 'O' pentru confirmare sau 'D' pentru anulare!")
+                print("Comanda a fost anulată. Reveniți la meniul principal.")
+                stare = q0  
+                bautura_selectata = None 
 
-        if comanda_confirmata:
-            return f"{bautura_selectata} dumneavoastră este gata!"
 
 if __name__ == "__main__":
-    print(automat_finit())
+    automat_finit()
